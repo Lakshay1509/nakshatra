@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import logo from "../assets/logo.png";
 
 const sidebarLinks = [
   {
@@ -45,11 +46,10 @@ const Sidebar = ({ children }) => {
     <div className="flex min-h-screen">
       <aside className="hidden md:flex md:flex-col w-64 bg-white shadow-lg h-screen fixed top-0 left-0 z-50">
         <div className="p-6 border-b border-pink-100">
-          <Link to="/">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-              Resonanze
-            </h1>
-          </Link>
+          <Link to="/" className="flex items-center space-x-2 animate-fadeIn">
+                        <img src={logo} className="w-18 h-12" />
+                      
+                      </Link>
         </div>
         <nav className="flex-1 px-4 pb-4 pt-4">
           {sidebarLinks.map(({ title, href, icon: Icon, color }) => (

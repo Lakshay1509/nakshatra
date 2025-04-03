@@ -3,6 +3,7 @@ import { ArrowRight, Check, Menu, Mic, Heart, AlertCircle } from "lucide-react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import dashboardImg from "../assets/dashboard.png";
+import logo from "../assets/logo.png";
 import wqr from "../assets/wqr.png";
 import { ContainerScroll } from "../components/ScrollAnimation";
 import AnimatedTestimonialsDemo from "../components/SampleTestimonial";
@@ -53,7 +54,7 @@ const LandingPage = () => {
               </p>
 
               <Link to={"/health"} className="flex justify-center gap-4 mt-8">
-                <button className="rounded-full px-8 py-6 text-lg gap-2 bg-pink-500 hover:bg-pink-600 text-white inline-flex items-center">
+                <button className="rounded-full px-6 py-4 text-lg gap-2 bg-pink-500 hover:bg-pink-600 text-white inline-flex items-center">
                   Explore Vocal Wellness{" "}
                   <ArrowRight className="ml-2" size={18} />
                 </button>
@@ -259,10 +260,10 @@ const LandingPage = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                  <Mic className="w-8 h-8 text-pink-500" />
-                  AudiHealth
-                </h3>
+               <Link to="/" className="flex items-center space-x-2 animate-fadeIn mb-4">
+                                       <img src={logo} className="w-18 h-12" />
+                                     
+                </Link>
                 <p className="text-gray-600">
                   Empowering voices through technology
                   <br />

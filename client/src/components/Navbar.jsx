@@ -1,0 +1,137 @@
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight, Check, Menu, Mic, Heart, AlertCircle } from "lucide-react";
+import { AuthContext } from "../context/AuthContext";
+import logo from "../assets/logo.png";
+
+const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const { user, logout } = useContext(AuthContext);
+
+  // Add active style function for Links
+  const getLinkClass = ({ isActive }) => {
+    return `${
+      isActive ? "text-pink-500" : "text-gray-600"
+    } font-medium hover:text-pink-500 transition-colors`;
+  };
+
+  return (
+    <>
+      <header className="fixed w-full bg-white/80 backdrop-blur-sm z-50 border-b border-pink-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            {/* Logo Section */}
+            <Link to="/" className="flex items-center space-x-2 animate-fadeIn">
+              <img src={logo} className="w-18 h-12" />
+            
+            </Link>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center space-x-6 z-50">
+              {user && (
+                <>
+                  <Link to="/dashboard" className={getLinkClass("/dashboard")}>
+                    Dashboard
+                  </Link>
+                  <Link to="/health" className={getLinkClass("/health")}>
+                    Diagnose
+                  </Link>
+                </>
+              )}
+              {user ? (
+                <div className="flex items-center space-x-4">
+                  <span className="text-gray-600 font-medium">
+                    Welcome, {user.fullName}
+                  </span>
+                  <button
+                    onClick={logout}
+                    className="px-4 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-colors"
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="px-4 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-colors"
+                >
+                  Login
+                </Link>
+              )}
+            </nav>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden p-2 text-gray-600 hover:text-pink-500"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Menu Implementation */}
+      {isMenuOpen && (
+        <div className="md:hidden fixed inset-0 z-50 bg-white">
+          <div className="p-4">
+            <div className="flex justify-end">
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="p-2 text-gray-600 hover:text-pink-500"
+              >
+                ✕
+              </button>
+            </div>
+            <nav className="flex flex-col space-y-4 p-4">
+              {user && (
+                <>
+                  <Link
+                    to="/dashboard"
+                    className={getLinkClass("/dashboard")}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    to="/health"
+                    className={getLinkClass("/health")}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Diagnose
+                  </Link>
+                </>
+              )}
+              {user ? (
+                <>
+                  <span className="text-gray-600 font-medium">
+                    Welcome, {user.fullName}
+                  </span>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setIsMenuOpen(false);
+                    }}
+                    className="px-4 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-colors text-center"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <Link
+                  to="/auth"
+                  className="px-4 py-2 bg-pink-500 text-white rounded-full hover:bg-pink-600 transition-colors text-center"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Login
+                </Link>
+              )}
+            </nav>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+export default Navbar;

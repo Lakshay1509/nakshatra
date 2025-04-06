@@ -63,23 +63,26 @@ const AudiBuddy = () => {
       setIsLoading(true);
   
       try {
-        const response = await fetch("http://localhost:8000/api/chat", {
+        const response = await fetch("http://localhost:8080/api/chat", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ message: inputValue }),
         });
+
+        
   
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
   
         const data = await response.json();
+        
   
         const botMessage = {
           type: "text",
-          content: data.message,
+          content: data.response,
           timestamp: new Date().toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",

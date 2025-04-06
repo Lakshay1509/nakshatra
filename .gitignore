@@ -2,4 +2,4 @@ ai/app/__pycache__
 client/node_modules
 server/node_modules
 server/.env
-ai
+ai/.env

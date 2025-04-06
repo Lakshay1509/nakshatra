@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import dashboardImg from "../assets/dashboard.png";
 import logo from "../assets/logo.png";
+import bot_qr from "../assets/bot_qr.jpg";
 import wqr from "../assets/wqr.png";
 import { ContainerScroll } from "../components/ScrollAnimation";
 import AnimatedTestimonialsDemo from "../components/SampleTestimonial";
@@ -149,28 +150,15 @@ const LandingPage = () => {
                     Generate comprehensive reports and act immediately on your
                     voice health.
                   </p>
-                  <div className="bg-muted p-6 rounded-xl">
-                    <p className="font-medium flex items-center gap-2">
-                      <span className="text-black-600">➤</span> Send
-                      <code className="mx-2 px-2 py-1 bg-primary/10 text-xl rounded">
-                        join put-rice
-                      </code>
-                      to
-                    </p>
-                    <p className="text-xl font-bold mt-2 flex items-center">
-                      <span className="bg-black-100 text-black-800 px-3 py-1 rounded-lg mr-2">
-                        WhatsApp
-                      </span>
-                      +1 415 523 8886
-                    </p>
-                  </div>
+                  
                 </div>
                 <div className="flex justify-center">
-                  <div className="rounded-xl border-2 border-purple-600 p-4 bg-white w-[220px] h-[220px] overflow-hidden ">
-                    {/* Placeholder for QR Code */}
-                    <img src={wqr} className="w-fit" />
-                  </div>
-                </div>
+  <div className="rounded-xl border-2 border-purple-600 p-4 bg-white w-[300px] h-[300px] overflow-hidden">
+    {/* Placeholder for QR Code */}
+    <img src={bot_qr} className="w-full h-full object-contain" />
+  </div>
+</div>
+
               </div>
             </section>
 

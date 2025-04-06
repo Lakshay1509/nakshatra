@@ -4,7 +4,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, BarChart, Bar, Legend
 } from "recharts";
-import { Mic, Calendar, TrendingUp, Activity, ArrowRight } from "lucide-react";
+import { Mic, Calendar, TrendingUp, Activity, ArrowRight, Flame } from "lucide-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import moment from "moment-timezone";
@@ -110,114 +110,20 @@ export default function Dashboard() {
             <h1 className="text-2xl font-bold text-gray-800">{user.fullName}</h1>
           </div>
 
+          <div className="flex flex-row justify-center items-center space-x-2">
           <Link to="/health">
             <Button className="bg-pink-500 hover:bg-pink-600 text-white shadow-sm">
               Record Voice <Mic className="ml-2 h-4 w-4" />
             </Button>
           </Link>
+          <Flame className="text-pink-500 h-8 w-8" /><span className="text-2xl font-bold text-pink-800">10</span>
+          </div>
         </div>
 
-        {/* Main content grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left column - 2/3 width */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Latest Analysis Card */}
-            {latestReport && (
-              <Card>
-                <div className="p-6">
-                  <div className="flex justify-between items-start mb-5">
-                    <div>
-                      <h2 className="text-lg font-medium text-gray-800">Latest Voice Analysis</h2>
-                      <p className="text-sm text-gray-500 flex items-center">
-                        <Calendar size={14} className="mr-1" />
-                        {latestReport.analysisDate ? moment(latestReport.analysisDate).format('MMMM D, YYYY') : "N/A"}
-                      </p>
-                    </div>
-                    <div className="px-3 py-1 rounded-full bg-pink-50 text-pink-600 text-sm font-medium">
-                      {latestReport.prediction || "N/A"}
-                    </div>
-                  </div>
-
-                  {latestReport.findings && (
-                    <div className="bg-pink-100 rounded-lg p-4 text-sm">
-                      <div className="prose prose-sm max-w-none">
-                        <ReactMarkdown 
-                          components={{
-                            h1: ({node, ...props}) => <h3 className="text-base font-semibold mb-2" {...props} />,
-                            h2: ({node, ...props}) => <h4 className="text-base font-semibold mb-2" {...props} />,
-                            h3: ({node, ...props}) => <h5 className="text-sm font-semibold mb-1" {...props} />,
-                            p: ({node, ...props}) => <p className="mb-2 text-gray-600" {...props} />,
-                            ul: ({node, ...props}) => <ul className="list-disc pl-5 mb-2" {...props} />,
-                            ol: ({node, ...props}) => <ol className="list-decimal pl-5 mb-2" {...props} />,
-                            li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                            strong: ({node, ...props}) => <strong className="font-semibold" {...props} />
-                          }}
-                        >
-                          {cleanFindings(latestReport.findings)}
-                        </ReactMarkdown>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </Card>
-            )}
-
-            {/* Weekly Trends Chart */}
-            <Card>
-              <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-lg font-medium text-gray-800">Weekly Voice Metrics</h3>
-                  <div className="flex items-center space-x-2">
-                    <div className="flex items-center">
-                      <div className="h-3 w-3 rounded-full bg-pink-500 mr-1"></div>
-                      <span className="text-xs text-gray-500">Jitter</span>
-                    </div>
-                    <div className="flex items-center">
-                      <div className="h-3 w-3 rounded-full bg-pink-300 mr-1"></div>
-                      <span className="text-xs text-gray-500">Shimmer</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="h-64">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={dashboardData.weeklyData || []}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-                      <XAxis 
-                        dataKey="date" 
-                        tickFormatter={(date) => moment(date).format('DD MMM')} 
-                        stroke="#9ca3af"
-                        fontSize={12}
-                        tickMargin={10}
-                      />
-                      <YAxis stroke="#9ca3af" fontSize={12} tickMargin={10} />
-                      <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }} />
-                      <Line 
-                        type="monotone" 
-                        dataKey="jitter" 
-                        stroke="#ec4899" 
-                        strokeWidth={2}
-                        name="Jitter (%)" 
-                        dot={{ stroke: '#ec4899', strokeWidth: 2, r: 4, fill: 'white' }}
-                        activeDot={{ r: 6 }}
-                      />
-                      <Line 
-                        type="monotone" 
-                        dataKey="shimmer" 
-                        stroke="#f9a8d4" 
-                        strokeWidth={2}
-                        name="Shimmer (%)" 
-                        dot={{ stroke: '#f9a8d4', strokeWidth: 2, r: 4, fill: 'white' }}
-                        activeDot={{ r: 6 }}
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
-              </div>
-            </Card>
-          </div>
-
-          {/* Right column - 1/3 width */}
-          <div className="space-y-6">
+        {/* Main content */}
+        <div className="space-y-6">
+          {/* Top row - 3 cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Voice Stability Card */}
             <Card>
               <div className="p-6">
@@ -325,6 +231,59 @@ export default function Dashboard() {
               </div>
             </Card>
           </div>
+          
+          {/* Bottom row - Weekly Trends Chart (full width) */}
+          <Card>
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-lg font-medium text-gray-800">Weekly Voice Metrics</h3>
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center">
+                    <div className="h-3 w-3 rounded-full bg-pink-500 mr-1"></div>
+                    <span className="text-xs text-gray-500">Jitter</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="h-3 w-3 rounded-full bg-pink-300 mr-1"></div>
+                    <span className="text-xs text-gray-500">Shimmer</span>
+                  </div>
+                </div>
+              </div>
+              <div className="h-80">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={dashboardData.weeklyData || []}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                    <XAxis 
+                      dataKey="date" 
+                      tickFormatter={(date) => moment(date).format('DD MMM')} 
+                      stroke="#9ca3af"
+                      fontSize={12}
+                      tickMargin={10}
+                    />
+                    <YAxis stroke="#9ca3af" fontSize={12} tickMargin={10} />
+                    <Tooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }} />
+                    <Line 
+                      type="monotone" 
+                      dataKey="jitter" 
+                      stroke="#ec4899" 
+                      strokeWidth={2}
+                      name="Jitter (%)" 
+                      dot={{ stroke: '#ec4899', strokeWidth: 2, r: 4, fill: 'white' }}
+                      activeDot={{ r: 6 }}
+                    />
+                    <Line 
+                      type="monotone" 
+                      dataKey="shimmer" 
+                      stroke="#f9a8d4" 
+                      strokeWidth={2}
+                      name="Shimmer (%)" 
+                      dot={{ stroke: '#f9a8d4', strokeWidth: 2, r: 4, fill: 'white' }}
+                      activeDot={{ r: 6 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </Card>
         </div>
       </div>
     </div>

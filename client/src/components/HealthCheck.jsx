@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { AuthContext } from "../context/AuthContext";
 import moment from "moment-timezone";
+import LoadFacts from "./Facts";
 
 const HealthCheck = () => {
   const { user } = useContext(AuthContext);
@@ -122,6 +123,7 @@ const HealthCheck = () => {
 
   return (
     <div className="font-inter bg-white min-h-screen relative">
+      {isDiagnosing && <LoadFacts/>}
       <div className="relative z-10">
         <main className="pt-24 pb-16 min-h-screen">
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

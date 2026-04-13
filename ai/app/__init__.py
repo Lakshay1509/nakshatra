@@ -4,7 +4,7 @@ from groq import Groq
 import os
 import cloudinary
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY") or "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"
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 client = Groq(api_key=GROQ_API_KEY)
 
 model_path = "app/lsm_model3"

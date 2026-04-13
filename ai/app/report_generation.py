@@ -142,7 +142,7 @@ def generate_medical_report(features, prediction, probabilities):
     """
 
     completion = client.chat.completions.create(
-        model="deepseek-r1-distill-llama-70b",
+        model="llama-3.3-70b-versatile",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.6,
         max_tokens=4096,
@@ -368,7 +368,7 @@ def plot_mel_spectrogram(audio_path, output_path='mel_spectrogram.png'):
 
     # Plot mel spectrogram
     plt.subplot(3, 1, 2)
-    D = librosa.amplitude_to_db(librosa.stft(y), ref=np.max)
+    D = librosa.amplitude_to_db(np.abs(librosa.stft(y)), ref=np.max)
     librosa.display.specshow(D, sr=sr, x_axis='time', y_axis='log')
     plt.colorbar(format='%+2.0f dB')
     plt.title('Mel Spectrogram')

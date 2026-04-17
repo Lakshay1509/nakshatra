@@ -191,7 +191,33 @@ const LandingPage = () => {
   ))}
 </section>
 
-
+{/* Supported Diseases Section */}
+<section className="mt-24 bg-white p-8 rounded-2xl shadow-xl animate-fadeInUp">
+  <div className="text-center mb-10">
+    <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-pink-600">
+      Conditions We Currently Detect
+    </h2>
+    <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
+      Our advanced AI models are highly trained to recognize precise vocal biomarkers associated with the following conditions:
+    </p>
+  </div>
+  <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+    {[
+      { name: "Parkinson's Disease", icon: "🧠" },
+      { name: "Laryngitis", icon: "🗣️" },
+      { name: "Laryngoceles", icon: "🔊" },
+      { name: "Vocal Cysts", icon: "🎙️" },
+    ].map((disease, index) => (
+      <div
+        key={index}
+        className="flex flex-col items-center justify-center p-6 bg-pink-50 rounded-xl border border-pink-100 hover:shadow-md transition-all hover:scale-105"
+      >
+        <span className="text-4xl mb-3">{disease.icon}</span>
+        <h3 className="font-semibold text-center text-gray-800">{disease.name}</h3>
+      </div>
+    ))}
+  </div>
+</section>
 
           </section>
 
